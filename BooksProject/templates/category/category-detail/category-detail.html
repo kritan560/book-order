@@ -1,0 +1,34 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+
+<!-- Detail section -->
+<div class="row row-cols-1 row-cols-md-3 g-5 img-fluid">
+    {% for book in books %}
+    <div class="col">
+        <div class="card ">
+            <img src="{{book.image.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title"><a href="{% url 'book-detail' book.id %}">{{book.title}}</a></h5>
+                <p class="card-text">{{book.description}}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Author: {% for author in book.author.all %} {{author}} {% endfor %}</li>
+                <li class="list-group-item">Category: {% for category in book.category.all %} {{category}} {% endfor %}
+                </li>
+                <li class="list-group-item">Added at: {{book.date}}</li>
+                <li class="list-group-item">{{book.page_num}} pages</li>
+                <li class="list-group-item"> $ {{book.price}}</li>
+                <li class="list-group-item">
+                    <a href="{% url 'place-order' book.id %}">Place Order</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<br>
+<!-- End Detail section -->
+
+{% endblock content %}

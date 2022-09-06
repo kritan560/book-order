@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+{% if user.is_staff %}
+<ul>
+    <li>
+        <a href="{% url 'create-author' %}">Create Author</a> -
+
+    </li>
+    <li>
+
+        <a href="{% url 'create-book' %}">Create Book</a> -
+    </li>
+    <li>
+
+        <a href="{% url 'create-category' %}">Create Category</a>
+    </li>
+</ul>
+{% else %}
+<p>admin login required to see links</p>
+{% endif %}
+
+{% endblock content %}

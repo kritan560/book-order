@@ -1,0 +1,18 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+{% if user.is_staff %}
+<a href="{% url 'create-author' %}">Create Author</a> - 
+<a href="{% url 'create-book' %}">Create Book</a>
+<h1>Create Category</h1>
+<form action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="btn btn-success">Create Category</button>
+</form>
+{% else %}
+<p>Admin login required</p>
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,55 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+<h1>Order for {{book.title}} by {% for author in book.author.all %}{{author}}{% endfor %}</h1>
+<!-- <form action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button>Place Order</button>
+</form> -->
+{% if messages %}
+{% for message in messages %}
+{{message}}
+{% endfor %}
+{% endif %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    <label for="order-num">Enter Qty</label>
+    <input type="number" name="order_num" id="order-num">
+    <button>Place Order</button>
+</form> <br>
+
+{% if order %}
+<h2>Previous Order detail of {{user}}</h2>
+{% else %}
+<h2>No any order by {{user}}</h2>
+{% endif %}
+
+{% for order in order %}
+<ul>
+    <li>
+
+        Order Qty: {{order.num_order}}
+    </li>
+    <li>
+
+        Order Status: {{order.status}}
+    </li>
+    <li>
+        Order Book: <a href="{% url 'book-detail' order.book.id %}"> {{order.book}}</a>
+
+    </li>
+    <li>
+        Order By: {{order.user}}
+
+    </li>
+    <li>
+
+        Order On: {{order.date}}
+    </li>
+</ul>
+{% endfor %}
+
+{% endblock content %}

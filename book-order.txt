@@ -1,0 +1,15 @@
+1. staff account is needed to create a book, author and category
+2. day and night mode integration on nav-bar only when time is greater than 7
+3. to place a order you need to login if have no account created then sign up
+4. similarly to comment a account is needed
+5. comment are shown to any user login or logout if there is comment else no comment for this post is shown
+6. any user can view homepage and a details of a book. (author, category, date added, pages, and price ) but account is needed to purchase
+7. order details of a logged in user is shown at the nav-bar username dropdown if a user had purchase any 1 item else haven't order anything 	yet is shown
+8. logout link is inside the username dropdown. for a logged in user else login is shown
+9. extra link nav-bar is shown to the user who are authorised to manage a page. (admin is default you can give access to other user too 	using django adminstration)
+10. you can search book using the search bar at nav-bar only a single word can search a matching book... if you want to search a book name 	tales of vishnu than tools keyword won't find it for you either only a t word or tales or vishnu be specific or any matching words of 	a book will do work
+11. you can search book using the category in nav-bars. all the books releated to the category will be shown (hence you can order comment by opening a specific book from category)
+12. on footer social media icons where it redirect you to your social profile it is static but can be made dynamic adding model.
+13. internet connection is required to load the js. without internet dropdown won't work
+14. you can see your previous order if any if you place an order.
+15. can view the detail of book from order details too.

@@ -1,0 +1,70 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+<h2 class="display-6 bold">{{book.title}}</h2>
+
+<!-- Detail section -->
+<div class="card" style="width: 28rem;">
+    <img src="{{book.image.url}}" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{book.title}}</h5>
+        <p class="card-text">{{book.description}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Author: {% for author in book.author.all %} {{author}} {% endfor %}</li>
+        <li class="list-group-item">Category: {% for category in book.category.all %} {{category}} {% endfor %}</li>
+        <li class="list-group-item">Added at: {{book.date}}</li>
+        <li class="list-group-item">{{book.page_num}} pages</li>
+        <li class="list-group-item"> $ {{book.price}}</li>
+    </ul>
+    <div class="card-body">
+        <a href="{% url 'place-order' book.id %}">Place Order</a>
+
+    </div>
+</div><br>
+<!-- End Detail section -->
+
+{% if user.is_authenticated %}
+
+<!-- comment section -->
+{% if comment %}
+<p class="display-6 text-center">What people have to say about <b> {{book.title}}</b></p>
+{% for comment in comment %}
+<div class="card">
+    <div class="card-header">
+        Comment By - {{comment.user}}
+    </div>
+    <div class="card-body">
+        <blockquote class="blockquote mb-0">
+            <p>{{comment.comment}}</p>
+            <footer class="blockquote-footer">Comment Date <cite title="Source Title">{{comment.date}}</cite></footer>
+        </blockquote>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<p class="display-6">There are not comment yet fot this post comment below to add one</p>
+{% endif %}
+<br>
+<!-- endcomment section -->
+
+<!-- check authentication to comment -->
+<form action="{% url 'comment' book.id %}" method="post">
+    {% csrf_token %}
+    <label for="exampleFormControlTextarea1"></label>
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Comment below</label>
+        <textarea class="form-control" placeholder="Write us your comment here" name="comment"
+            id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    <button class="btn btn-primary">Submit comment</button>
+</form>
+{% else %}
+<p class="display-6"><a href="{% url 'comment-login' book.id %}" > Login to comment...</a></p>
+{% endif %}
+
+<!-- end check authentication -->
+
+
+{% endblock content %}

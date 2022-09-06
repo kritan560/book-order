@@ -1,0 +1,14 @@
+{% if time > 7 %}
+{% include 'nav-bars/header.html' %}
+{% else %}
+{% include 'nav-bars/header_night.html' %}
+{% endif %}
+
+{% block content %}
+{% endblock content %}
+
+{% if time > 7 %}
+{% include 'nav-bars/footer.html' %}
+{% else %}
+{% include 'nav-bars/footer_night.html' %}
+{% endif %}

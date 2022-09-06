@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+<h1>Login Page</h1> <br>
+<form action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="btn btn-success">Log In</button>
+</form><br>
+<p>
+    Don't have an account <a href="{% url 'create-user' %}">Sign Up</a> to create one
+</p>
+
+{% endblock content %}

@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+
+
+{% block content %}
+
+{% if order %}
+<h2>Order detail of {{user}}</h2>
+
+{% for order in order %}
+<ul>
+    <li>
+        
+        Order Qty: {{order.num_order}}
+    </li>
+    <li>
+        
+        Order Status: {{order.status}}
+    </li>
+    <li>
+        Order Book: <a href="{% url 'book-detail' order.book.id %}">{{order.book}}</a> 
+        
+    </li>
+    <li>
+        Order By: {{order.user}}
+        
+    </li>
+    <li>
+        
+        Order On: {{order.date}}
+    </li>
+</ul>
+{% endfor %}
+{% else %}
+<p class="display-6">{{user}} haven't order anything yet</p>
+{% endif %}
+
+
+{% endblock content %}

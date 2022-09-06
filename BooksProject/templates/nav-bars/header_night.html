@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% if title %}
+            {{title}}
+            {% else %}
+            Document
+            {% endif %}
+        </title>
+        <!-- <link rel="icon" href="{% static 'icon/favicon.ico' %}"> -->
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    </head>
+
+    <body class="bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2 sticky-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'book-homepage' %}"><img src="{{all_data.logo.url}}" width="40"
+                        alt=""></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'book-homepage' %}">Home</a>
+                        </li>
+                        {% if user.is_staff %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'link-list' %}">Link</a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item dropdown dropdown-menu-dark">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Category
+                            </a>
+                            <ul class="dropdown-menu">
+                                {% for category in category %}
+                                <li><a class="dropdown-item"
+                                        href="{% url 'category-detail' category.id %}">{{category.category_name}}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link disabled">Disabled</a>
+                        </li> -->
+                    </ul>
+
+                    <div class="dropdown me-2 text-white">
+                        {% if user.is_authenticated %}
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Welcome, {{user.username}}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'order-detail' %}">Order Detail</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+                                <!-- <hr class="dropdown-divider"> -->
+                            {% else %}
+                            <a class="dropdown-item" href="{% url 'login' %}">Log In</a>
+                        </ul>
+                        {% endif %}
+                    </div>
+
+                    <form class="d-flex" role="search" method="post" action="{% url 'book-search' %}">
+                        {% csrf_token %}
+                        <input class="form-control me-2" type="search" placeholder="Search Book" name="book_name" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+        </nav>
+        <div class="container">
